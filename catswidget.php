@@ -94,7 +94,7 @@ class Cats_Loop_Widget extends WP_Widget {
 		
 		$cat_query = new WP_Query( $cat_args ); 
    
-		include( plugin_dir_path( __FILE__ ) . '/views/widget.php' );
+		include( plugin_dir_path( __FILE__ ) . '/views/template.php' );
 		
 		wp_reset_postdata();
 		
