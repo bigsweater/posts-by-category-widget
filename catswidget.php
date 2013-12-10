@@ -1,20 +1,15 @@
 <?php
 
 /**
-* Plugin Name: Posts by Category Widget
-* Description: A widget that displays posts by categories you choose.
+* Plugin Name: Widget - Posts By Category
+* Description: Displays posts in the category, order, and quantity of your choosing.
 * Version: 1.0
-* Author: <a href="http://bigsweaterdesign.com" title="Big Sweater Design">Big Sweater Design</a>
+* Author: Vincent Maglione
+* Author URI: http://bigsweaterdesign.com/
+* Text Domain: posts_by_cat_widget
+* Domain Path: /lang
 */
 
-
-/**
- * @package CatsWidget
- * @version 1.0
- * @since 1.0
- * @author Vincent Maglione <vincent@bigsweaterdesign.com>
- * @link(http://github.com/bigsweater/posts-by-cat-widget, Github)
- */
 class Cats_Loop_Widget extends WP_Widget {
 
 	/*--------------------------------------------------*/
@@ -232,7 +227,7 @@ class Cats_Loop_Widget extends WP_Widget {
 	/**
 	 * Loads template from theme, if available.
 	 */
-	public function posts_by_cat_widget_load_template($_vars) {
+	 function posts_by_cat_widget_load_template($_vars) {
 		// Find the user's template first
 		$_template = locate_template('catswidget.php', false, false);
 
@@ -249,7 +244,7 @@ class Cats_Loop_Widget extends WP_Widget {
 	/**
 	 * Gets category names
 	 */
-	public function bsd_getCategories() {
+	 function bsd_getCategories() {
 		static $_categories = NULL;
 
 		if (NULL === $_categories) {
@@ -262,7 +257,7 @@ class Cats_Loop_Widget extends WP_Widget {
 	/**
 	 * Gets category IDs after the previous function returns names
 	 */
-	public function bsd_getCategoriesId($categories) {
+	 function bsd_getCategoriesId($categories) {
 		static $_categories_id = NULL;
 
 		if (NULL == $_categories_id) {
@@ -362,7 +357,7 @@ class BSD_Walker_Category_Checklist extends Walker {
 		foreach ($top_level_elements as $e)
 			$this->display_element($e, $children_elements, $max_depth, 0, $args, $output);
 
-			/*
+		/*
 		 * if we are displaying all levels, and remaining children_elements is not empty,
 		 * then we got orphans, which should be displayed regardless
 		 */
