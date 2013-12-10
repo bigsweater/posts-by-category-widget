@@ -4,7 +4,7 @@
  */
 ?>
 <p>
-	<label for="<?php _e( $this->get_field_id('title'), 'posts_by_cat_widget' ); ?>"><?php _e( 'Title:' ); ?>
+	<label for="<?php _e( $this->get_field_id('title'), 'posts_by_cat_widget' ); ?>"><?php _e( 'Title:', 'posts_by_cat_widget' ); ?>
 		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
 	</label>
 </p>
@@ -32,24 +32,24 @@
 </ul>
 
 <p>
-	<label for="<?php _e( $this->get_field_id('order'), 'posts_by_cat_widget' ); ?>"><?php _e( 'Order:' ); ?></label>
+	<label for="<?php $this->get_field_id('order'); ?>"><?php _e( 'Order:', 'posts_by_cat_widget' ); ?></label>
 	
 	<select name="<?php echo $this->get_field_name('order'); ?>" id="<?php echo $this->get_field_id('order'); ?>">
-		<option value="desc" <?php selected( $order, 'desc' ); ?>>Descending (Z-A)</option>
-		<option value="asc" <?php selected( $order, 'asc' ); ?>>Ascending (A-Z)</option>
+		<option value="desc" <?php selected( $order, 'desc' ); ?>><?php _e( 'Descending (Z-A)', 'posts_by_cat_widget' ); ?></option>
+		<option value="asc" <?php selected( $order, 'asc' ); ?>><?php _e( 'Ascending (A-Z)', 'posts_by_cat_widget' ); ?></option>
 	</select>
 </p>
 
 <p>
-	<label for="<?php _e( $this->get_field_id('orderby'), 'posts_by_cat_widget' ); ?>"><?php _e( 'Order By:' ); ?></label>
+	<label for="<?php _e( $this->get_field_id('orderby'), 'posts_by_cat_widget' ); ?>"><?php _e( 'Order By:', 'posts_by_cat_widget' ); ?></label>
 	
 	<select name="<?php echo $this->get_field_name('orderby'); ?>" id="<?php echo $this->get_field_id('orderby'); ?>">
-		<option value="date" <?php selected( $orderby, 'date' ); ?>>Date</option>
-		<option value="author" <?php selected( $orderby, 'author' ); ?>>Author</option>
-		<option value="modified" <?php selected( $orderby, 'modified' ); ?>>Modified</option>
-		<option value="name" <?php selected( $orderby, 'name' ); ?>>Name</option>
-		<option value="id" <?php selected( $orderby, 'id' ); ?>>Post ID</option>
-		<option value="title" <?php selected( $orderby, 'title' ); ?>>Title</option>
-		<option value="rand" <?php selected( $orderby, 'rand' ); ?>>Random</option>
+		<option value="date" <?php selected( $orderby, 'date' ); ?>><?php _e( 'Date', 'posts_by_cat_widget' ); ?></option>
+		<option value="author" <?php selected( $orderby, 'author' ); ?>><?php _e( 'Author', 'posts_by_cat_widget' ); ?></option>
+		<option value="modified" <?php selected( $orderby, 'modified' ); ?>><?php _e( 'Modified', 'posts_by_cat_widget' ); ?></option>
+		<option value="name" <?php selected( $orderby, 'name' ); ?>><?php _e( 'Name', 'posts_by_cat_widget' ); ?></option>
+		<option value="id" <?php selected( $orderby, 'id' ); ?>><?php _e( 'Post ID', 'posts_by_cat_widget' ); ?></option>
+		<option value="title" <?php selected( $orderby, 'title' ); ?>><?php _e( 'Title', 'posts_by_cat_widget' ); ?></option>
+		<option value="rand" <?php selected( $orderby, 'rand' ); ?>><?php _e( 'Random', 'posts_by_cat_widget' ); ?></option>
 	</select>
 </p>

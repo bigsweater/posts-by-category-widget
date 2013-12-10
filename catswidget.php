@@ -28,11 +28,7 @@ class Cats_Loop_Widget extends WP_Widget {
 	public function __construct() {
 	
 		// load plugin text domain
-		add_action( 'init', array( $this, 'posts_by_cat_widget' ) );
-		
-		// Hooks fired when the Widget is activated and deactivated
-		register_activation_hook( __FILE__, array( $this, 'activate' ) );
-		register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
+		add_action( 'init', array( $this, 'posts_by_cat_widget_textdomain' ) );
 		
 		// Create a new widget, name it, give it a description, IDs, and classes
 		parent::__construct(
@@ -76,29 +72,32 @@ class Cats_Loop_Widget extends WP_Widget {
 		}
 		
 		// Sanitize and store user inputs
-		$title	= esc_html( $instance['title'] );
-		$count	= intval( $instance['count'] );
-		$order	= sanitize_key( $instance['order'] );
-		$orderby= sanitize_key( $instance['orderby'] );
+		$title   = esc_html( $instance['title'] );
+		$count   = intval( $instance['count'] );
+		$order   = sanitize_key( $instance['order'] );
+		$orderby = sanitize_key( $instance['orderby'] );
 		
 
 		// Arguments for the new query taken from stored inputs
 		$cat_args = array( 
-			'cat'				=> $included_cats,
-			'posts_per_page'	=> $count,
-			'order'				=> $order,
-			'orderby'			=> $orderby
+			'cat'            => $included_cats,
+			'posts_per_page' => $count,
+			'order'          => $order,
+			'orderby'        => $orderby
 		);
 		
 		// Create the new WP query
 		$cat_query = new WP_Query( $cat_args ); 
-		
-		if (!empty($title)) {
+
+		// Echo the widget's container
+		if ( !empty( $title ) ) {
 			echo $before_title . $title . $after_title;
 		}
    		
    		// Include the front-end view
-		include( plugin_dir_path( __FILE__ ) . '/views/template.php' );
+		$this -> posts_by_cat_widget_load_template(
+			array( 'posts' => $cat_query )
+		);
 		
 		// Rewind your posts
 		wp_reset_postdata();
@@ -195,8 +194,8 @@ class Cats_Loop_Widget extends WP_Widget {
 		else
 			$args['selected_cats'] = array();
 
-		$categories     = bsd_getCategories();
-		$_categories_id = bsd_getCategoriesId($categories);
+		$categories     = $this -> bsd_getCategories();
+		$_categories_id = $this -> bsd_getCategoriesId($categories);
 
 		// Post process $categories rather than adding an exclude to the get_terms() query to keep the query the same across all posts (for any query cache)
 		$checked_categories = array();
@@ -213,7 +212,7 @@ class Cats_Loop_Widget extends WP_Widget {
 
 		// Put checked cats on top
 		echo $walker->walk_cats($checked_categories, 0, array( $args ));
-		
+
 		// Then the rest of them
 		echo $walker->walk_cats($categories, 0, array( $args ));
 	}
@@ -225,13 +224,55 @@ class Cats_Loop_Widget extends WP_Widget {
 	/**
 	 * Loads the Widget's text domain for localization and translation.
 	 */
-	public function posts_by_cat_widget() {
-	
-		// TODO be sure to change 'widget-name' to the name of *your* plugin
+	public function posts_by_cat_widget_textdomain() {
 		load_plugin_textdomain( 'posts_by_cat_widget', false, plugin_dir_path( __FILE__ ) . '/lang/' );
 		
-	} // end posts_by_cat_widget
+	}
 	
+	/**
+	 * Loads template from theme, if available.
+	 */
+	public function posts_by_cat_widget_load_template($_vars) {
+		// Find the user's template first
+		$_template = locate_template('catswidget.php', false, false);
+
+		// If the user doesn't provide a view, load the default
+		if ( !$_template )
+			$_template = plugin_dir_path( __FILE__ ) . 'views/template.php';
+		
+		// Get the arguments and load the template
+		extract($_vars);
+
+		require($_template);
+	}
+	
+	/**
+	 * Gets category names
+	 */
+	public function bsd_getCategories() {
+		static $_categories = NULL;
+
+		if (NULL === $_categories) {
+			$_categories = get_categories('get=all');
+		}
+
+		return $_categories;
+	}
+
+	/**
+	 * Gets category IDs after the previous function returns names
+	 */
+	public function bsd_getCategoriesId($categories) {
+		static $_categories_id = NULL;
+
+		if (NULL == $_categories_id) {
+			foreach ($categories as $key => $category) {
+				$_categories_id[$category->term_id] = $key;
+			}
+		}
+
+		return $_categories_id;
+	}
 } // end class
 
 add_action( 'widgets_init', create_function( '', 'register_widget("Cats_Loop_Widget");' ) ); 
@@ -356,24 +397,4 @@ class BSD_Walker_Category_Checklist extends Walker {
 	function end_el ( &$output, $category, $depth = 0, $args = array() ) {
 		$output .= "</li>\n";
 	}
-}
-
-// Determine chosen categories
-function bsd_getCategories () {
-	static $_categories = NULL;
-	if (NULL === $_categories) {
-		$_categories = get_categories('get=all');
-	}
-	return $_categories;
-}
-
-// Turn chosen categories into an array of their IDs
-function bsd_getCategoriesId ($categories) {
-	static $_categories_id = NULL;
-	if (NULL == $_categories_id) {
-		foreach ($categories as $key => $category) {
-			$_categories_id[$category->term_id] = $key;
-		}
-	}
-	return $_categories_id;
 }
