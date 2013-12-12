@@ -1,13 +1,13 @@
 <?php
-
-/**
-* Plugin Name: Widget - Posts By Category
-* Description: Displays posts in the category, order, and quantity of your choosing.
-* Version: 1.0
-* Author: Vincent Maglione
-* Author URI: http://bigsweaterdesign.com/
-* Text Domain: posts_by_cat_widget
-* Domain Path: /lang
+/*
+Plugin Name: Widget - Posts By Category
+Plugin URI: http://wordpress.org/plugins/widget-posts-by-category/
+Description: Displays posts in the category, order, and quantity of your choosing.
+Author: Vincent Maglione
+Version: 1.0.3
+Author URI: http://bigsweaterdesign.com
+Text Domain: posts_by_cat_widget
+Domain Path: /lang
 */
 
 class Cats_Loop_Widget extends WP_Widget {
