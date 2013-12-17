@@ -3,8 +3,8 @@
 Contributors: volfro
 Tags: widget, posts, category, themeable
 Requires at least: 3.7
-Tested up to: 3.7.1
-Stable tag: 1.0.3
+Tested up to: 3.8
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +23,9 @@ After installation, drag-and-drop the new "Category Widget" to a widget area, ch
 1. Use the "Category Widget" in any of your sidebars/widget areas
 
 == Changelog ==
+= 1.0.4 =
+* Update to 3.8
+
 = 1.0.2 =
 * Plugin wasn't installing properly in the WP dashboard...maybe updating its headers will fix the issue.
 

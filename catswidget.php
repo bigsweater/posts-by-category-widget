@@ -4,7 +4,7 @@ Plugin Name: Widget - Posts By Category
 Plugin URI: http://wordpress.org/plugins/widget-posts-by-category/
 Description: Displays posts in the category, order, and quantity of your choosing.
 Author: Vincent Maglione
-Version: 1.0.3
+Version: 1.0.4
 Author URI: http://bigsweaterdesign.com
 Text Domain: posts_by_cat_widget
 Domain Path: /lang
